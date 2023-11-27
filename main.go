@@ -23,10 +23,6 @@ func main() {
 		log.Println("Error while encoding JSON smiles data")
 	}
 
-	//for _, v := range smiles {
-	//	fmt.Println(v)
-	//}
-
 	go Connect()
 
 	conn, _ := net.Dial("tcp", "127.0.0.1:5801")

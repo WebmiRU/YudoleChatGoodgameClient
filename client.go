@@ -3,13 +3,31 @@ package main
 import (
 	"YudolePlatofrmGoodgameClient/types"
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/websocket"
 	"log"
+	"strings"
 )
 
 var Out = make(chan any, 99999)
 
 func processMessage(message types.ChatMessage) types.ChatMessage {
+	message.Text = message.Src
+	message.Html = message.Src
+
+	for _, v := range smiles {
+		var smile = ":" + v.Key + ":"
+		var image = v.Images.Big
+
+		if v.Animated == 1 {
+			image = v.Images.Gif
+		}
+
+		if strings.Index(message.Src, smile) >= 0 {
+			message.Text = strings.ReplaceAll(message.Text, smile, "")
+			message.Html = strings.ReplaceAll(message.Html, smile, fmt.Sprintf("<img src=\"%s\" alt=\"%s\" title=\"%s\"/>", image, v.Key, v.Key))
+		}
+	}
 
 	return message
 }

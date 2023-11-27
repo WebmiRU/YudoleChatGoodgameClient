@@ -6,7 +6,7 @@ type UserMeta struct {
 }
 
 type User struct {
-	Name string   `json:"nickname"`
+	Name string   `json:"name"`
 	Meta UserMeta `json:"meta"`
 }
 
